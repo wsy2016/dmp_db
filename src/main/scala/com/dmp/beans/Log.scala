@@ -1,6 +1,8 @@
 package cn.dmp.beans
 
 import com.dmp.utils.NBUtil
+import org.apache.commons.lang3.StringUtils
+import org.apache.spark.sql.Row
 
 
 class Log(val sessionid: String,
@@ -190,6 +192,51 @@ class Log(val sessionid: String,
 
 
 object Log {
+
+
+
+
+  /**
+    * 只要给我们传过来一条数据，我们就可以通过line2Log转换成一个日志对象
+    */
+  def line2Log(line: String): Log = {
+    if (StringUtils.isNotEmpty(line)) {
+      val strings: Array[String] = line.split(",")
+      val fields = strings
+      //因为有的字段被使用多次，所以只要79就可以了
+      if (fields.length >= 79) {
+        //创建对象
+        new Log(fields(0), NBUtil.toInt(fields(1)), NBUtil.toInt(fields(2)), NBUtil.toInt(fields(3)), NBUtil.toInt(fields(4)), fields(5), fields(6), NBUtil.toInt(fields(7)), NBUtil.toInt(fields(8)), NBUtil.toDouble(fields(9)), NBUtil.toDouble(fields(10)),
+          fields(11), fields(12), fields(13), fields(14), fields(15), fields(16), NBUtil.toInt(fields(17)), fields(18), fields(19), NBUtil.toInt(fields(20)),
+          NBUtil.toInt(fields(21)), fields(22), fields(23), fields(24), fields(25), NBUtil.toInt(fields(26)), fields(27), NBUtil.toInt(fields(28)), fields(29), NBUtil.toInt(fields(30)),
+          NBUtil.toInt(fields(31)), NBUtil.toInt(fields(32)), fields(33), NBUtil.toInt(fields(34)), NBUtil.toInt(fields(35)), NBUtil.toInt(fields(36)), fields(37), NBUtil.toInt(fields(38)), NBUtil.toInt(fields(39)), NBUtil.toDouble(fields(40)),
+          NBUtil.toDouble(fields(41)), NBUtil.toInt(fields(42)), fields(43), NBUtil.toDouble(fields(44)), NBUtil.toDouble(fields(45)), fields(46), fields(47), fields(48), fields(49), fields(50),
+          fields(51), fields(52), fields(53), fields(54), fields(55), fields(56), NBUtil.toInt(fields(57)), NBUtil.toDouble(fields(58)), NBUtil.toInt(fields(59)), NBUtil.toInt(fields(60)),
+          fields(61), fields(62), fields(63), fields(64), fields(65), fields(66), fields(67), fields(68), fields(69), fields(70),
+          fields(71), "", fields(72), fields(11), fields(11),
+          NBUtil.toInt(fields(73)), NBUtil.toDouble(fields(74)), NBUtil.toDouble(fields(75)), NBUtil.toDouble(fields(76)), NBUtil.toDouble(fields(77)), NBUtil.toDouble(fields(78)), "", "", "", "", "", 1)
+      } else {
+        //万一没满足条件，我们后面的代码就无法运行了。所以要创建空对象
+        makeLogs()
+      }
+
+    } else {
+      //万一没满足条件，我们后面的代码就无法运行了。所以要创建空对象
+      makeLogs()
+    }
+
+  }
+
+  //创建空对象
+  def makeLogs(): Log = {
+    new Log("", 0, 0, 0, 0, "", "", 0, 0, 0.0, 0.0, "", "", "", "", "", "", 0, "",
+      "", 0, 0, "", "", "", "", 0, "", 0, "", 0, 0, 0, "", 0, 0, 0, "", 0, 0,
+      0.0, 0.0, 0, "", 0.0, 0.0, "", "", "", "", "", "", "", "", "", "", "", 0, 0.0, 0, 0,
+      "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", 0, 0.0, 0.0, 0.0, 0.0, 0.0, "", "", "", "", "", 0
+    )
+  }
+
+
   def apply(arr: Array[String]): Log = new Log(
     arr(0),
     NBUtil.toInt(arr(1)),
