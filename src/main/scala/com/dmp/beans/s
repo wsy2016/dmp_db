@@ -1,0 +1,52 @@
+select
+provincename, cityname,
+sum(case when requestmode=1 and processnode >=2 then 1 else 0 end) 有效请求,
+sum(case when requestmode=1 and processnode =3 then 1 else 0 end) 广告请求,
+sum(case when iseffective=1 and isbilling=1 and isbid=1 and adorderid !=0 then 1 else 0 end) 参与竞价数,
+sum(case when iseffective=1 and isbilling=1 and iswin=1 then 1 else 0 end) 竞价成功数,
+sum(case when requestmode=2 and iseffective=1 then 1 else 0 end) 展示数,
+sum(case when requestmode=3 and iseffective=1 then 1 else 0 end) 点击数,
+sum(case when iseffective=1 and isbilling=1 and iswin=1 then 1.0*adpayment/1000 else 0 end) 广告成本,
+sum(case when iseffective=1 and isbilling=1 and iswin=1 then 1.0*winprice/1000 else 0 end) 广告消费
+from log
+group by provincename, cityname
+
+Exception in thread "main" org.apache.spark.sql.catalyst.parser.ParseException:
+mismatched input '有' expecting {<EOF>,
+
+
+'(', ',', '.', '[', 'SELECT', 'FROM', 'ADD', 'AS', 'ALL',
+'DISTINCT', 'WHERE', 'GROUP', 'BY', 'GROUPING', 'SETS', 'CUBE',
+'ROLLUP', 'ORDER', 'HAVING', 'LIMIT', 'AT', 'OR', 'AND', 'IN',
+NOT, 'NO', 'EXISTS', 'BETWEEN', 'LIKE', RLIKE, 'IS', 'NULL',
+'TRUE', 'FALSE', 'NULLS', 'ASC', 'DESC', 'FOR', 'INTERVAL', 'CASE',
+'WHEN', 'THEN', 'ELSE', 'END', 'JOIN', 'CROSS', 'OUTER', 'INNER',
+'LEFT', 'SEMI', 'RIGHT', 'FULL', 'NATURAL', 'ON', 'LATERAL', 'WINDOW',
+'OVER', 'PARTITION', 'RANGE', 'ROWS', 'UNBOUNDED', 'PRECEDING',
+'FOLLOWING', 'CURRENT', 'FIRST', 'LAST', 'ROW', 'WITH', 'VALUES',
+'CREATE', 'TABLE', 'VIEW', 'REPLACE', 'INSERT', 'DELETE', 'INTO',
+'DESCRIBE', 'EXPLAIN', 'FORMAT', 'LOGICAL', 'CODEGEN', 'CAST', 'SHOW',
+'TABLES', 'COLUMNS', 'COLUMN', 'USE', 'PARTITIONS', 'FUNCTIONS', 'DROP',
+'UNION', 'EXCEPT', 'MINUS', 'INTERSECT', 'TO', 'TABLESAMPLE', 'STRATIFY',
+'ALTER', 'RENAME', 'ARRAY', 'MAP', 'STRUCT', 'COMMENT', 'SET', 'RESET',
+'DATA', 'START', 'TRANSACTION', 'COMMIT', 'ROLLBACK', 'MACRO',
+'IF', EQ, '<=>', '<>', '!=', '<', LTE, '>',
+GTE, '+', '-', '*', '/', '%', 'DIV', '&', '|',
+'^', 'PERCENT', 'BUCKET', 'OUT', 'OF', 'SORT',
+'CLUSTER', 'DISTRIBUTE', 'OVERWRITE', 'TRANSFORM',
+'REDUCE', 'USING', 'SERDE', 'SERDEPROPERTIES',
+'RECORDREADER', 'RECORDWRITER', 'DELIMITED', 'FIELDS',
+'TERMINATED', 'COLLECTION', 'ITEMS', 'KEYS', 'ESCAPED',
+'LINES', 'SEPARATED', 'FUNCTION', 'EXTENDED', 'REFRESH',
+'CLEAR', 'CACHE', 'UNCACHE', 'LAZY', 'FORMATTED', 'GLOBAL',
+TEMPORARY, 'OPTIONS', 'UNSET', 'TBLPROPERTIES', 'DBPROPERTIES',
+'BUCKETS', 'SKEWED', 'STORED', 'DIRECTORIES', 'LOCATION', 'EXCHANGE',
+'ARCHIVE', 'UNARCHIVE', 'FILEFORMAT', 'TOUCH', 'COMPACT', 'CONCATENATE',
+'CHANGE', 'CASCADE', 'RESTRICT', 'CLUSTERED', 'SORTED', 'PURGE', 'INPUTFORMAT',
+'OUTPUTFORMAT', DATABASE, DATABASES, 'DFS', 'TRUNCATE', 'ANALYZE',
+'COMPUTE', 'LIST', 'STATISTICS', 'PARTITIONED', 'EXTERNAL', 'DEFINED',
+'REVOKE', 'GRANT', 'LOCK', 'UNLOCK', 'MSCK', 'REPAIR', 'RECOVER',
+'EXPORT', 'IMPORT', 'LOAD', 'ROLE', 'ROLES', 'COMPACTIONS',
+'PRINCIPALS', 'TRANSACTIONS', 'INDEX', 'INDEXES', 'LOCKS', 'OPTION',
+'ANTI', 'LOCAL', 'INPATH', 'CURRENT_DATE', 'CURRENT_TIMESTAMP',
+IDENTIFIER, BACKQUOTED_IDENTIFIER}(line 4, pos 67)

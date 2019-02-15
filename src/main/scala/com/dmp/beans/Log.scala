@@ -192,51 +192,6 @@ class Log(val sessionid: String,
 
 
 object Log {
-
-
-
-
-  /**
-    * 只要给我们传过来一条数据，我们就可以通过line2Log转换成一个日志对象
-    */
-  def line2Log(line: String): Log = {
-    if (StringUtils.isNotEmpty(line)) {
-      val strings: Array[String] = line.split(",")
-      val fields = strings
-      //因为有的字段被使用多次，所以只要79就可以了
-      if (fields.length >= 79) {
-        //创建对象
-        new Log(fields(0), NBUtil.toInt(fields(1)), NBUtil.toInt(fields(2)), NBUtil.toInt(fields(3)), NBUtil.toInt(fields(4)), fields(5), fields(6), NBUtil.toInt(fields(7)), NBUtil.toInt(fields(8)), NBUtil.toDouble(fields(9)), NBUtil.toDouble(fields(10)),
-          fields(11), fields(12), fields(13), fields(14), fields(15), fields(16), NBUtil.toInt(fields(17)), fields(18), fields(19), NBUtil.toInt(fields(20)),
-          NBUtil.toInt(fields(21)), fields(22), fields(23), fields(24), fields(25), NBUtil.toInt(fields(26)), fields(27), NBUtil.toInt(fields(28)), fields(29), NBUtil.toInt(fields(30)),
-          NBUtil.toInt(fields(31)), NBUtil.toInt(fields(32)), fields(33), NBUtil.toInt(fields(34)), NBUtil.toInt(fields(35)), NBUtil.toInt(fields(36)), fields(37), NBUtil.toInt(fields(38)), NBUtil.toInt(fields(39)), NBUtil.toDouble(fields(40)),
-          NBUtil.toDouble(fields(41)), NBUtil.toInt(fields(42)), fields(43), NBUtil.toDouble(fields(44)), NBUtil.toDouble(fields(45)), fields(46), fields(47), fields(48), fields(49), fields(50),
-          fields(51), fields(52), fields(53), fields(54), fields(55), fields(56), NBUtil.toInt(fields(57)), NBUtil.toDouble(fields(58)), NBUtil.toInt(fields(59)), NBUtil.toInt(fields(60)),
-          fields(61), fields(62), fields(63), fields(64), fields(65), fields(66), fields(67), fields(68), fields(69), fields(70),
-          fields(71), "", fields(72), fields(11), fields(11),
-          NBUtil.toInt(fields(73)), NBUtil.toDouble(fields(74)), NBUtil.toDouble(fields(75)), NBUtil.toDouble(fields(76)), NBUtil.toDouble(fields(77)), NBUtil.toDouble(fields(78)), "", "", "", "", "", 1)
-      } else {
-        //万一没满足条件，我们后面的代码就无法运行了。所以要创建空对象
-        makeLogs()
-      }
-
-    } else {
-      //万一没满足条件，我们后面的代码就无法运行了。所以要创建空对象
-      makeLogs()
-    }
-
-  }
-
-  //创建空对象
-  def makeLogs(): Log = {
-    new Log("", 0, 0, 0, 0, "", "", 0, 0, 0.0, 0.0, "", "", "", "", "", "", 0, "",
-      "", 0, 0, "", "", "", "", 0, "", 0, "", 0, 0, 0, "", 0, 0, 0, "", 0, 0,
-      0.0, 0.0, 0, "", 0.0, 0.0, "", "", "", "", "", "", "", "", "", "", "", 0, 0.0, 0, 0,
-      "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", 0, 0.0, 0.0, 0.0, 0.0, 0.0, "", "", "", "", "", 0
-    )
-  }
-
-
   def apply(arr: Array[String]): Log = new Log(
     arr(0),
     NBUtil.toInt(arr(1)),
@@ -323,5 +278,92 @@ object Log {
     arr(82),
     arr(83),
     NBUtil.toInt(arr(84))
+  )
+  def apply(arr: Row): Log = new Log(
+    arr(0).toString,
+    NBUtil.toInt(arr(1).toString),
+    NBUtil.toInt(arr(2).toString),
+    NBUtil.toInt(arr(3).toString),
+    NBUtil.toInt(arr(4).toString),
+    arr(5).toString,
+    arr(6).toString,
+    NBUtil.toInt(arr(7).toString),
+    NBUtil.toInt(arr(8).toString),
+    NBUtil.toDouble(arr(9).toString),
+    NBUtil.toDouble(arr(10).toString),
+    arr(11).toString,
+    arr(12).toString,
+    arr(13).toString,
+    arr(14).toString,
+    arr(15).toString,
+    arr(16).toString,
+    NBUtil.toInt(arr(17).toString),
+    arr(18).toString,
+    arr(19).toString,
+    NBUtil.toInt(arr(20).toString),
+    NBUtil.toInt(arr(21).toString),
+    arr(22).toString,
+    arr(23).toString,
+    arr(24).toString,
+    arr(25).toString,
+    NBUtil.toInt(arr(26).toString),
+    arr(27).toString,
+    NBUtil.toInt(arr(28).toString),
+    arr(29).toString,
+    NBUtil.toInt(arr(30).toString),
+    NBUtil.toInt(arr(31).toString),
+    NBUtil.toInt(arr(32).toString),
+    arr(33).toString,
+    NBUtil.toInt(arr(34).toString),
+    NBUtil.toInt(arr(35).toString),
+    NBUtil.toInt(arr(36).toString),
+    arr(37).toString,
+    NBUtil.toInt(arr(38).toString),
+    NBUtil.toInt(arr(39).toString),
+    NBUtil.toDouble(arr(40).toString),
+    NBUtil.toDouble(arr(41).toString),
+    NBUtil.toInt(arr(42).toString),
+    arr(43).toString,
+    NBUtil.toDouble(arr(44).toString),
+    NBUtil.toDouble(arr(45).toString),
+    arr(46).toString,
+    arr(47).toString,
+    arr(48).toString,
+    arr(49).toString,
+    arr(50).toString,
+    arr(51).toString,
+    arr(52).toString,
+    arr(53).toString,
+    arr(54).toString,
+    arr(55).toString,
+    arr(56).toString,
+    NBUtil.toInt(arr(57).toString),
+    NBUtil.toDouble(arr(58).toString),
+    NBUtil.toInt(arr(59).toString),
+    NBUtil.toInt(arr(60).toString),
+    arr(61).toString,
+    arr(62).toString,
+    arr(63).toString,
+    arr(64).toString,
+    arr(65).toString,
+    arr(66).toString,
+    arr(67).toString,
+    arr(68).toString,
+    arr(69).toString,
+    arr(70).toString,
+    arr(71).toString,
+    arr(72).toString,
+    NBUtil.toInt(arr(73).toString),
+    NBUtil.toDouble(arr(74).toString),
+    NBUtil.toDouble(arr(75).toString),
+    NBUtil.toDouble(arr(76).toString),
+    NBUtil.toDouble(arr(77).toString),
+    NBUtil.toDouble(arr(78).toString),
+    arr(79).toString,
+    arr(80).toString,
+    arr(81).toString,
+    arr(82).toString,
+    arr(83).toString,
+    NBUtil.toInt(arr(84).toString)
   )
 }
