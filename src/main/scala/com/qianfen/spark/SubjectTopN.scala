@@ -90,7 +90,13 @@ object SubjectTopN {
         val key: String = new StringBuffer().append(arr(6)).append(arr(5)).toString
         (key, (studentId, sumScore))
       })
-    scRdd.groupByKey().foreach(println(_))
+    scRdd.foreach(println(_))
+    scRdd.groupByKey().map(item => {
+      val key: String = item._1
+      val tuples: List[(String, Int)] = item._2.toList.sortWith(_._2<_._2).reverse.take(3)
+      (key,tuples)
+
+    }).foreach(println(_))
 
 
     //每系每班每科前3名
