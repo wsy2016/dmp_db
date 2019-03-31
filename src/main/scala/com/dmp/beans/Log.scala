@@ -27,7 +27,7 @@ class Log(val sessionid: String,
           val density: String,
           val pw: Int,
           val ph: Int,
-          val long: String,
+          val long123: String,
           val lat: String,
           val provincename: String,
           val cityname: String,
@@ -115,7 +115,7 @@ class Log(val sessionid: String,
     case 19 => density
     case 20 => pw
     case 21 => ph
-    case 22 => long
+    case 22 => long123
     case 23 => lat
     case 24 => provincename
     case 25 => cityname
@@ -187,7 +187,7 @@ class Log(val sessionid: String,
   override def canEqual(that: Any): Boolean = that.isInstanceOf[Log]
 
 
-  override def toString = s"$sessionid,$advertisersid,$adorderid,$adcreativeid,$adplatformproviderid,$sdkversion,$adplatformkey,$putinmodeltype,$requestmode,$adprice,$adppprice,$requestdate,$ip,$appid,$appname,$uuid,$device,$client,$osversion,$density,$pw,$ph,$long,$lat,$provincename,$cityname,$ispid,$ispname,$networkmannerid,$networkmannername,$iseffective,$isbilling,$adspacetype,$adspacetypename,$devicetype,$processnode,$apptype,$district,$paymode,$isbid,$bidprice,$winprice,$iswin,$cur,$rate,$cnywinprice,$imei,$mac,$idfa,$openudid,$androidid,$rtbprovince,$rtbcity,$rtbdistrict,$rtbstreet,$storeurl,$realip,$isqualityapp,$bidfloor,$aw,$ah,$imeimd5,$macmd5,$idfamd5,$openudidmd5,$androididmd5,$imeisha1,$macsha1,$idfasha1,$openudidsha1,$androididsha1,$uuidunknow,$userid,$iptype,$initbidprice,$adpayment,$agentrate,$lomarkrate,$adxrate,$title,$keywords,$tagid,$callbackdate,$channelid,$mediatype\n"
+  override def toString = s"$sessionid,$advertisersid,$adorderid,$adcreativeid,$adplatformproviderid,$sdkversion,$adplatformkey,$putinmodeltype,$requestmode,$adprice,$adppprice,$requestdate,$ip,$appid,$appname,$uuid,$device,$client,$osversion,$density,$pw,$ph,$long123,$lat,$provincename,$cityname,$ispid,$ispname,$networkmannerid,$networkmannername,$iseffective,$isbilling,$adspacetype,$adspacetypename,$devicetype,$processnode,$apptype,$district,$paymode,$isbid,$bidprice,$winprice,$iswin,$cur,$rate,$cnywinprice,$imei,$mac,$idfa,$openudid,$androidid,$rtbprovince,$rtbcity,$rtbdistrict,$rtbstreet,$storeurl,$realip,$isqualityapp,$bidfloor,$aw,$ah,$imeimd5,$macmd5,$idfamd5,$openudidmd5,$androididmd5,$imeisha1,$macsha1,$idfasha1,$openudidsha1,$androididsha1,$uuidunknow,$userid,$iptype,$initbidprice,$adpayment,$agentrate,$lomarkrate,$adxrate,$title,$keywords,$tagid,$callbackdate,$channelid,$mediatype\n"
 }
 
 
