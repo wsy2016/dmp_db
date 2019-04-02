@@ -1,4 +1,4 @@
-package com.dmp.report
+package com.dmp.reportold
 
 import org.apache.hadoop.conf.Configuration
 import org.apache.hadoop.fs.{FileSystem, Path}

@@ -1,9 +1,9 @@
-package com.dmp.report
+package com.dmp.reportold
 
 import java.util.Properties
 
 import cn.dmp.beans.Log
-import com.dmp.utils.{ConfUtil, ReportUtils}
+import com.dmp.utils.{ConfUtil, ReportUtil}
 import org.apache.spark.SparkContext
 import org.apache.spark.rdd.RDD
 import org.apache.spark.sql.{DataFrame, Dataset, Row, SparkSession}
@@ -23,7 +23,7 @@ object kAppAnalyseReport {
     if (args.length < 3) {
       println(
         """
-          |com.dmp.report.AppReport <logDataPath> <appMappingPath> <outputPath>
+          |com.dmp.reportold.AppReport <logDataPath> <appMappingPath> <outputPath>
           | <logDataPath> 日志目录
           | <appMappingPath> 映射文件目录
           | <outputPath> 输出结果文件目录
@@ -78,10 +78,10 @@ object kAppAnalyseReport {
     //rdds.take(2).foreach(println(_))
     val value: Dataset[(String, List[Double])] = df.map(row => {
       val log: Log = Log(row)
-      val adRequest = ReportUtils.calculateRequest(log)
-      val adResponse = ReportUtils.calculateResponse(log)
-      val adClick = ReportUtils.calculateShowClick(log)
-      val adCost = ReportUtils.calculateAdCost(log)
+      val adRequest = ReportUtil.calculateRequest(log)
+      val adResponse = ReportUtil.calculateResponse(log)
+      val adClick = ReportUtil.calculateShowClick(log)
+      val adCost = ReportUtil.calculateAdCost(log)
       (log.appname, adCost ++ adResponse ++ adClick ++ adCost)
     })
     value.take(4).foreach(println(_))

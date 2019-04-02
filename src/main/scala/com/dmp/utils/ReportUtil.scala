@@ -11,7 +11,7 @@ import cn.dmp.beans.Log
   * Date: 2019/2/15 10:09
   *
   */
-object ReportUtils {
+object ReportUtil {
 
   /**
     *

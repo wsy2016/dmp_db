@@ -20,6 +20,8 @@ import org.apache.spark.sql.{DataFrame, _}
   */
 object BzipToParquet {
 
+  private final val outputFile = "/Users/wensiyang/Downloads/dmp/result/dmpLogResult";
+
 
   /*
   *
@@ -57,7 +59,7 @@ object BzipToParquet {
       *
       * 3 读取日志根据业务需求对数据进行etl
       */
-    val rdds: RDD[Array[String]] = sc.textFile("/Users/wensiyang/Downloads/resources/dmpLog.txt")
+    val rdds: RDD[Array[String]] = sc.textFile("/Users/wensiyang/Downloads/dmp/resources/dmpLog.txt")
       .map(_.split(","))
       .filter(line => line.length > 80)
 
@@ -162,7 +164,7 @@ object BzipToParquet {
     //    val sqlDf: DataFrame = spark.sql("Select * from df join df1 on df.sessionid =df1.sessionid")
     //    sqlDf.show()
 
-    //df.show()
+    df.show()
 
 
     /** *
@@ -170,7 +172,7 @@ object BzipToParquet {
       * 4 落到到parquet
       */
 
-    df.write.parquet("/Users/wensiyang/Downloads/result/dmpLogResult")
+    df.write.parquet(outputFile)
     sc.stop()
 
   }

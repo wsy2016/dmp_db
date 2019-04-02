@@ -1,4 +1,4 @@
-package com.dmp.report
+package com.dmp.reportold
 
 import org.apache.hadoop.conf.Configuration
 import org.apache.hadoop.fs.{FileSystem, Path}
@@ -30,12 +30,12 @@ object ProCityRpt {
     val rs: DataFrame = spark.sql("select provincename, cityname, count(*) ct from log group by provincename, cityname order by ct desc")
     val configuration: Configuration = sc.hadoopConfiguration
     val fileSystem = FileSystem.get(configuration)
-    val path = new Path("/Users/wensiyang/Downloads/result/report.json")
+    val path = new Path("/Users/wensiyang/Downloads/result/reportold.json")
     if (fileSystem.exists(path)) {
       fileSystem.delete(path, true)
     }
 
-    rs.coalesce(2).write.json("/Users/wensiyang/Downloads/result/report.json")
+    rs.coalesce(2).write.json("/Users/wensiyang/Downloads/result/reportold.json")
     spark.stop()
   }
 
