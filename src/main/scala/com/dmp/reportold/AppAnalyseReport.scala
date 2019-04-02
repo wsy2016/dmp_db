@@ -28,10 +28,10 @@ object kAppAnalyseReport {
           | <appMappingPath> 映射文件目录
           | <outputPath> 输出结果文件目录
         """.stripMargin)
-      System.exit(0)
+     // System.exit(0)
     }
 
-    val Array(logDataPath, appMappingPath, outputPath) = args
+    //val Array(logDataPath, appMappingPath, outputPath) = args
     val spark: SparkSession = SparkSession
       .builder()
       .appName(s"${this.getClass.getSimpleName}")
@@ -51,25 +51,26 @@ object kAppAnalyseReport {
     connProp.put("user", user)
     connProp.put("password", password)
     val df: DataFrame = spark.read.jdbc(url, tableName, connProp)
-    //    df.createOrReplaceTempView("log")
-    //
-    //    val result = spark.sql(
-    //      """
-    //        |select
-    //        |provincename, cityname,
-    //        |sum(case when requestmode=1 then 1 else 0 end) `总请求`,
-    //        |sum(case when requestmode=1 and processnode >=2 then 1 else 0 end) `有效请求`,
-    //        |sum(case when requestmode=1 and processnode =3 then 1 else 0 end) `广告请求`,
-    //        |sum(case when iseffective=1 and isbilling=1 and isbid=1 and adorderid !=0 then 1 else 0 end) `参与竞价数`,
-    //        |sum(case when iseffective=1 and isbilling=1 and iswin=1 then 1 else 0 end) `竞价成功数`,
-    //        |sum(case when requestmode=2 and iseffective=1 then 1 else 0 end) `展示数`,
-    //        |sum(case when requestmode=3 and iseffective=1 then 1 else 0 end) `点击数`,
-    //        |sum(case when iseffective=1 and isbilling=1 and iswin=1 then 1.0*adpayment/1000 else 0 end) `广告成本`,
-    //        |sum(case when iseffective=1 and isbilling=1 and iswin=1 then 1.0*winprice/1000 else 0 end) `广告消费`
-    //        |from log
-    //        |group by provincename, cityname
-    //        |order by provincename
-    //      """.stripMargin)
+        df.createOrReplaceTempView("log")
+
+        val result = spark.sql(
+          """
+            |select
+            |provincename, cityname,
+            |sum(case when requestmode=1 then 1 else 0 end) `总请求`,
+            |sum(case when requestmode=1 and processnode >=2 then 1 else 0 end) `有效请求`,
+            |sum(case when requestmode=1 and processnode =3 then 1 else 0 end) `广告请求`,
+            |sum(case when iseffective=1 and isbilling=1 and isbid=1 and adorderid !=0 then 1 else 0 end) `参与竞价数`,
+            |sum(case when iseffective=1 and isbilling=1 and iswin=1 then 1 else 0 end) `竞价成功数`,
+            |sum(case when requestmode=2 and iseffective=1 then 1 else 0 end) `展示数`,
+            |sum(case when requestmode=3 and iseffective=1 then 1 else 0 end) `点击数`,
+            |sum(case when iseffective=1 and isbilling=1 and iswin=1 then 1.0*adpayment/1000 else 0 end) `广告成本`,
+            |sum(case when iseffective=1 and isbilling=1 and iswin=1 then 1.0*winprice/1000 else 0 end) `广告消费`
+            |from log
+            |group by provincename, cityname
+            |order by provincename
+          """.stripMargin)
+    result.show()
     // result.write.jdbc(url, "app_report",connProp)
 
     import spark.implicits._

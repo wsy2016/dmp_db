@@ -13,7 +13,7 @@ package com.qianfen.scala
   */
 class E_Dog {
 
-  private var name = "狗"
+   var name = "狗"
 
   def printName :Unit = {
     println(E_Dog.SONG)
@@ -26,7 +26,7 @@ object E_Dog{
   def main(args: Array[String]): Unit = {
 
     val dog: E_Dog = new E_Dog
-
+    dog.name
     dog.printName
   }
 
