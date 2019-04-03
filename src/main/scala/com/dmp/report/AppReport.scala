@@ -6,7 +6,7 @@ import org.apache.spark.sql.{DataFrame, SparkSession}
 
 /**
   *
-  * Description:
+  * Description:媒体分析(App)报告
   *
   * Author: wsy
   *
@@ -48,7 +48,7 @@ object AppReport {
     val frame1: DataFrame = spark.sql(
       """
         | SELECT
-        |     case appName whene `tt`
+        |     *
         | FROM temp
       """.stripMargin)
 
