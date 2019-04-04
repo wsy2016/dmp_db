@@ -26,8 +26,10 @@ object AppReportV2 {
       .master("local[*]")
       .getOrCreate()
     val sc: SparkContext = spark.sparkContext
-    val appMap: Map[String, String] = sc.textFile(RESUREC_PATH).flatMap(line => {
-    }
+//    val appMap: Map[String, String] = sc.textFile(RESUREC_PATH).flatMap(line => {
+//
+//
+//    }
 
 
     }

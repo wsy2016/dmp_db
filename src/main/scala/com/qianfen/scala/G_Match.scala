@@ -32,16 +32,23 @@ object G_Match {
     }
 
 
-
     //类型匹配
-    var typeArrs = Array(1,2,"3",true)
+    var typeArrs = Array(1, 2, "3", true)
     val typeArr: Any = typeArrs(Random.nextInt(typeArrs.length))
 
     typeArr match {
-      case str:String =>println(s"$str,$typeArr")
-      case double:Double =>println(s"$double,$typeArr")
-      case int:Int =>println(s"$int,$typeArr")
+      case str: String => println(s"$str,$typeArr")
+      case double: Double => println(s"$double,$typeArr")
+      case int: Int => println(s"$int,$typeArr")
 
+    }
+
+
+    //计算逻辑匹配
+    var arrs = Array(1, 2, 3)
+    val int = arrs(Random.nextInt(arrs.length))
+    int match {
+      case x if x < 10 => println(x)
     }
 
   }
